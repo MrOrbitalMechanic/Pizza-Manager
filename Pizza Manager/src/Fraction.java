@@ -5,6 +5,10 @@
  */
 public class Fraction {
 	
+	public static void main(String args[]){
+		//Fraction myFrac = new Fraction(2,16);
+		System.out.println(getGCD(54, 10));
+	}
 	private String[] fullFrac = new String[2];
 	private final int numerator;
 	private final int denominator;
@@ -21,10 +25,14 @@ public class Fraction {
 	 */
 	public Fraction(String frac){
 		this.fullFrac = frac.split("/", 2);
-		this.numerator = Integer.parseInt(fullFrac[0]);
-		this.denominator = Integer.parseInt(fullFrac[1]);
-		if(this.numerator == 0 || this.denominator == 0){/*Do nothing*/}
-		else{throw new PizzaException("Numerator or denominator cannot be zero");}
+		//this.numerator = Integer.parseInt(fullFrac[0]);
+		//this.denominator = Integer.parseInt(fullFrac[1]);
+		
+		if(Integer.parseInt(fullFrac[0]) != 0 || Integer.parseInt(fullFrac[1]) != 0){
+			int GCD = getGCD(this.numerator, this.denominator);
+			this.numerator = Integer.parseInt(fullFrac[0])/GCD;
+			this.denominator = Integer.parseInt(fullFrac[1])/GCD;
+		}else{throw new PizzaException("Numerator or denominator cannot be zero");}
 	}
 	
 	//Copy constructor
@@ -36,8 +44,9 @@ public class Fraction {
 	
 	public Fraction(int num, int denom){
 		if (num > 0 && denom > 0){
-			this.numerator = num;
-			this.denominator = denom;
+			int GCD = getGCD(this.numerator, this.denominator);
+			this.numerator = num/GCD;
+			this.denominator = denom/GCD;
 		}else{throw new PizzaException("Numerator or denominator cannot be zero");}
 	}
 	    
@@ -46,22 +55,37 @@ public class Fraction {
 	 * @return : If reducible - returns reduced form of the original Fraction.
 	 * 			 If irreducible - returns the original Fraction
 	 */
-	public int getGCD(int num, int denom){
+	private static int getGCD(int num, int denom){
+		if (num == 1 || denom == 1){return denom;}
+		else{/*Do Nothing*/}
 		if (num > denom){
-			if (num % denom != 1){
-				int tempNum = denom;
-				int tempDenom = num % denom;
-				if(tempNum % tempDenom == 0){
-					return tempDenom;
+			int originalDenom = denom;
+			while(num % denom != 1){
+				if(num % denom == 0){
+					return denom;
 				}else{
-					return getGCD(tempNum,tempDenom);
+					int tempNum = denom;
+					int tempDenom = num % denom;
+					num = tempNum;
+					denom = tempDenom;
 				}
-			}
+			}return originalDenom;
 		}else if (denom > num){
-			
+			int originalNum = num;
+			while (denom % num != 1){
+				if(denom % num == 0){
+					return num;
+				}else{
+					int tempNum = denom % num;
+					int tempDenom = num ;
+					num = tempNum;
+					denom = tempDenom;
+				}
+			}return originalNum;
 		}else{
 			return 1;
 		}
+		//return denom;
 		
 	}
 
