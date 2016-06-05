@@ -16,9 +16,7 @@ public class PizzaManager {
 	/*
 	 *  TODO: Data definitions here.  
 	 */
-	
-	
-	
+	private ArrayList<Pizza> pizzaList;
 	/* 
 	 * The console interface is defined in the start method 
 	 * You can exit or extend the code below to accomplish all of 
