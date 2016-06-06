@@ -19,7 +19,7 @@ public abstract class Vegetable extends Ingredient{
 	}
 
 	public String toString(){
-		//todo:
+		return 
 	}
 	
 	public Color getColor(){

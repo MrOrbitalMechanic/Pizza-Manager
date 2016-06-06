@@ -16,9 +16,13 @@ public abstract class Ingredient implements Comparable{
 	}
 	
 	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Object other) {
+		if(other instanceof Ingredient){
+			Ingredient that = (Ingredient) other;
+			int thisDelta = (int)this.cost.getMoney();
+			int thatDelta = (int)that.getCost().getMoney();
+			return thisDelta - thatDelta;
+		}else{return -1;}
 	}
 	
 	public String toString(){
