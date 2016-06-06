@@ -3,7 +3,7 @@
  * @author Roman Zhang
  * Fraction: represents a simple fraction: An integer numerator value and an integer denominator value.
  */
-public class Fraction {
+public class Fraction implements Comparable{
 	
 	public static void main(String args[]){
 		//Fraction myFrac = new Fraction(2,16);
@@ -12,7 +12,6 @@ public class Fraction {
 	private String[] fullFrac = new String[2];
 	private final int numerator;
 	private final int denominator;
-	
 	
 	private Fraction(){
 		this.numerator = 1;
@@ -116,5 +115,10 @@ public class Fraction {
 	public boolean equals(Fraction other){
 		return (this.numerator == other.getNumerator() && 
 				this.denominator == other.getDenominator());
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		
 	}
 }

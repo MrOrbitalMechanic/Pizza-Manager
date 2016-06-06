@@ -3,11 +3,13 @@
  * @author Roman
  *
  */
-public class Base extends Ingredient{
+public abstract class Meat extends Ingredient{
 
-	public Base(int inCalories, Money inCost, String inDescription) {
+	public Meat(int inCalories, Money inCost, String inDescription) {
 		super(inCalories, inCost, inDescription);
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 }

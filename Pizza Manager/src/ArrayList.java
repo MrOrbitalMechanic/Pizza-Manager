@@ -12,7 +12,7 @@
  * @author Roman Zhang
  * 
  */
-public class ArrayList {
+public class ArrayList<T> {
 
 	private Object[] list;
 	private int numElements;

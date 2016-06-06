@@ -13,7 +13,7 @@ import java.awt.*;
 //and many of the shapes exposed have a width and a height (but not all, so we didn't put width and height here)
 //note that this class is mostly empty, as there is no algorithm generic enough to guess an arbitrary shape's area (future subclasses must override getArea() to provide something reasonable)
 //also, the draw method is empty too, as we don't know what shape to draw here! (again, our subclasses will need to replace this method with one that actually draws things)
-class Shape extends Object {
+abstract class Shape extends Object implements Cloneable{
 	private int x = 0;
 	private int y = 0;
 	
@@ -32,4 +32,6 @@ class Shape extends Object {
 	
 	public int getX() { return x; }
 	public int getY() { return y; }
+	
+	public abstract Object clone();
 }
