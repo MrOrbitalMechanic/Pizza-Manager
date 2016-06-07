@@ -131,8 +131,8 @@ public class Money {
 		if(this.isValid(dol) || this.isValid(cent)){
 			this.dollars += dol;
 			if(this.cents + cent > 99){
-				int dollarAddition = this.cents + cent / 100;
-				int remainder = this.cents + cent % 100;
+				int dollarAddition = (this.cents + cent) / 100;
+				int remainder = (this.cents + cent) % 100;
 				this.dollars += dollarAddition;
 				this.cents = remainder;
 			}else{this.cents += cent;}

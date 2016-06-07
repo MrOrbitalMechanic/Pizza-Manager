@@ -86,7 +86,7 @@ public class PizzaManager {
 		System.out.println("Index of pizza you would like to eat?");
 		int indexOfPizza = keys.nextInt();
 		if (pizzaList.size() > 0){
-			if (indexOfPizza > 0 && indexOfPizza < pizzaList.size()){
+			if (indexOfPizza >= 0 && indexOfPizza < pizzaList.size()){
 				try{
 					((Pizza) pizzaList.get(indexOfPizza)).eatSomePizza(fractionToEat);
 				}

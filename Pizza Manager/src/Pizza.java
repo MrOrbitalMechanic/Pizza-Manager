@@ -49,7 +49,7 @@ public class Pizza implements PizzaComparable{
 	
 	public void addIngredient(Ingredient toAdd){
 		this.ingredientList.add(toAdd);
-		this.pizzaCost.add(toAdd.getCost());
+		this.pizzaCost.add(new Money(toAdd.getCost()));
 		this.pizzaCalories += toAdd.getCalories();
 	}
 	
