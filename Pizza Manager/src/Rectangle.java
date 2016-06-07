@@ -54,4 +54,9 @@ public class Rectangle extends Shape{
 	public int getHeight(){
 		return this.height;
 	}
+
+	@Override
+	public Object clone() {
+		return new Rectangle(this.width,this.height);
+	}
 }

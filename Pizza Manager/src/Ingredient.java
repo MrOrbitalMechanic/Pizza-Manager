@@ -22,11 +22,11 @@ public abstract class Ingredient implements Comparable{
 			int thisDelta = (int)this.cost.getMoney();
 			int thatDelta = (int)that.getCost().getMoney();
 			return thisDelta - thatDelta;
-		}else{return -1;}
+		}else{throw new PizzaException("Invalid compareTo object");}
 	}
 	
 	public String toString(){
-		//todo:
+		return this.description + " with " + this.calories + " calories per serving " + "and costs " + this.cost.toString();
 	}
 	
 	public boolean equals(Object other){

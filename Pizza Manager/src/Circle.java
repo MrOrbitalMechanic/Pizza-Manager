@@ -18,6 +18,11 @@ public class Circle extends Shape{
 		else{/* Error */}
 	}
 	
+	public Circle(int inRadius){
+		super(0,0);
+		this.radius = inRadius;
+	}
+	
 	@Override
 	public double getArea(){
 		return Math.PI * Math.pow(this.radius,2);
@@ -42,5 +47,14 @@ public class Circle extends Shape{
 	public void setRadius(int inRad){
 		if(inRad > 0){this.radius = inRad;}
 		else{/* Error */}
+	}
+
+	@Override
+	public Object clone() {
+		return new Circle(this.radius);
+	}
+	
+	public String toString(){
+		return "Circular";
 	}
 }

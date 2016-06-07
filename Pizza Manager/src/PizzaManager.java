@@ -1,4 +1,4 @@
-package pizzaMainClasses;
+//package pizzaMainClasses;
 import java.util.Scanner;
 
 /*  PizzaManager Skeleton File
@@ -16,36 +16,40 @@ public class PizzaManager {
 	/*
 	 *  TODO: Data definitions here.  
 	 */
-	private ArrayList<Pizza> pizzaList;
+	private ArrayList<Pizza> pizzaList = new ArrayList<Pizza>();
 	/* 
 	 * The console interface is defined in the start method 
 	 * You can exit or extend the code below to accomplish all of 
 	 * the outcomes defined in the homework document
 	 */
 	public void start() {
+		//this.pizzaList = new ArrayList<Pizza>();
 		char selection='q';
 		
 		Scanner foo = new Scanner(System.in);
-		
-		while(true) {
+		boolean runCondition = true;
+		while(runCondition == true) {
 			displayAllPizzas();
 			displayInstructions();
 			
 			
 			 //foo.nextChar() doesn't exist, so now what?
+			selection = foo.next().charAt(0);
 			
 			switch(selection) {
 				case	'A':    
 				case	'a':	System.out.println("Adding a random pizza to the ArrayList<Pizza>.");
-								//todo:
+								addRandomPizza();
 								break;
 				case	'H':    
 				case	'h':	System.out.println("Adding one hundred random pizzas to the ArrayList<Pizza>.");
-								//todo:
+								for(int i = 0; i < 101; i++){
+									addRandomPizza();
+								}
 								break;					
 				case	'E':    
 				case	'e':	System.out.println("Eating a fraction of a pizza. How much? (a/b)");
-								//todo:pizza eating code here
+								eatSomePizza(foo);
 								break;			
 				case	'P':    
 				case	'p': 	System.out.println("QuickSorting pizzas by (P)rice");
@@ -67,8 +71,9 @@ public class PizzaManager {
 								//todo:				
 				case    'Q':
 				case 	'q':	System.out.println("(Q)uitting!" );
-								//todo:
-								//break;
+
+								runCondition = false;
+								break;
 				default:	System.out.println("Unrecognized input - try again");
 			}
 		}
@@ -76,15 +81,33 @@ public class PizzaManager {
 	}
 
 	private void eatSomePizza(Scanner keys) {
-		//todo:
+		String inFraction = keys.next();
+		Fraction fractionToEat = new Fraction(inFraction);
+		System.out.println("Index of pizza you would like to eat?");
+		int indexOfPizza = keys.nextInt();
+		if (pizzaList.size() > 0){
+			if (indexOfPizza > 0 && indexOfPizza < pizzaList.size()){
+				try{
+					((Pizza) pizzaList.get(indexOfPizza)).eatSomePizza(fractionToEat);
+				}
+				catch (NegativePizzaException e){
+					System.out.print("Enter a valid fraction");
+				}
+				catch(PizzaException i){
+					pizzaList.remove(indexOfPizza);
+				}
+			}else{throw new PizzaException("Invalid index of Pizza");}
+		}else{System.out.println("There are currently no pizzas stored");}
 	}
 	
 	private void addRandomPizza() {
-		//todo:	
+		this.pizzaList.add(new Pizza());
 	}
 
 	private void displayAllPizzas() {
-		//todo:
+		for (int i = 0; i < pizzaList.size(); i++){
+			System.out.println(pizzaList.get(i).toString() + "\n");
+		}
 	}
 
 	private void quickSortByPrice() {  

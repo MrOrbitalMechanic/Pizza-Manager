@@ -16,4 +16,8 @@ public class Square extends Rectangle{
 	public Square(int inX, int inY, int sideLength){
 		super(inX,inY,sideLength,sideLength);
 	}
+	
+	public String toString(){
+		return "square";
+	}
 }

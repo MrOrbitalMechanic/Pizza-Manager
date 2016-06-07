@@ -16,7 +16,7 @@ public class Money {
 	 * of one Dollar and zero Cents.
 	 */
 	public Money(){
-		this.dollars = 1;
+		this.dollars = 0;
 		this.cents = 0;
 	}
 	/**
@@ -43,11 +43,19 @@ public class Money {
 	 * @param cent: The cent value given to this money object.
 	 */
 	public Money(int dol, int cent){
-		if(this.isValid(dol) && this.isValid(cent)){
+		if((this.isValid(dol) && this.isValid(cent)) || this.isValid(cent)){
 			this.setMoney(dol, cent);
 		}else{System.out.println("Error: Invalid Dollar or Cent value: Money constructor(int dol, int cent)...Exiting"); System.exit(-1);}
 	}
 	
+	public Money(double wholeValue){
+		if(wholeValue > 0){
+			int wholeAmount = (int)wholeValue;
+			int decimalAmount = (int)wholeValue - wholeAmount;
+			this.dollars = wholeAmount;
+			this.cents = decimalAmount;
+		}else{throw new PizzaException("Invalid wholeValue");}
+	}
 	/**
 	 * Copy Constructor Money(Money other): Initializes this Money object's dollars and cents 
 	 * instance variables to the values of another Money object's  dollars and cents by invoking
@@ -76,7 +84,7 @@ public class Money {
 	 * @param cent: The cent value to be set to this Money object's instance cents.
 	 */
 	public void setMoney(int dol, int cent){
-		if (this.isValid(dol) && this.isValid(cent)){
+		if ((this.isValid(dol) && this.isValid(cent)) || this.isValid(cent)){
 			this.dollars = dol;
 			if(cent > 99){
 				int dollarAddition = cent / 100;
@@ -123,10 +131,10 @@ public class Money {
 		if(this.isValid(dol) || this.isValid(cent)){
 			this.dollars += dol;
 			if(this.cents + cent > 99){
-				int dollarAddition = cent / 100;
-				int remainder = cent % 100;
+				int dollarAddition = this.cents + cent / 100;
+				int remainder = this.cents + cent % 100;
 				this.dollars += dollarAddition;
-				this.cents += remainder;
+				this.cents = remainder;
 			}else{this.cents += cent;}
 		}else{System.out.println("Error: Invalid Dollar or Cent value: Money method add()");}
 	}

@@ -36,9 +36,7 @@ public class Fraction implements Comparable{
 	
 	//Copy constructor
 	public Fraction(Fraction copy){
-		this.numerator = copy.getNumerator();
-		this.denominator = copy.getDenominator();
-		
+		this(copy.getNumerator(),copy.getDenominator());
 	}
 	
 	public Fraction(int num, int denom){
@@ -84,8 +82,6 @@ public class Fraction implements Comparable{
 		}else{
 			return 1;
 		}
-		//return denom;
-		
 	}
 
 	/**
@@ -118,7 +114,14 @@ public class Fraction implements Comparable{
 	}
 
 	@Override
-	public int compareTo(Object arg0) {
-		
+	public int compareTo(Object other) {
+		if(other instanceof Fraction){
+			Fraction that = (Fraction) other;
+			double thisRatio = this.numerator/this.denominator;
+			double thatRatio = that.getNumerator()/that.getDenominator();
+			if(thisRatio > thatRatio){return 1;}
+			else if(thisRatio < thatRatio){return -1;}
+			else{return 0;}
+		}else{return -1;}
 	}
 }
