@@ -45,7 +45,7 @@ public class ArrayList<T> {
 	 * add(Object toAdd): Adds input Object toAdd to the end of this ArrayList.
 	 * @param toAdd: The Object to be added to the end of this ArrayList.
 	 */
-	public void add(Object toAdd){
+	public void add(T toAdd){
 		if(toAdd == null){
 			System.out.println("Error: null Object passed - ArrayList method add()");
 		}else{
@@ -65,7 +65,7 @@ public class ArrayList<T> {
 	 * @param toAdd: The Object to be added to this ArrayList at the specified index.
 	 * @param index: The index of this ArrayList at which Object toAdd is to be inserted.
 	 */
-	public void insert(Object toAdd, int index){
+	public void insert(T toAdd, int index){
 		if(toAdd == null){
 			System.out.println("Error: null Object passed - ArrayList method insert()");
 		}else{
@@ -110,19 +110,23 @@ public class ArrayList<T> {
 	 * @param index: The index of this ArrayList at which its object is removed.
 	 * @return The Object that has been removed.
 	 */
-	public Object remove(int index){
+	public T remove(int index){
 		//Input argument index cannot be outside the active size of this ArrayList.
-		if(index >= 0 && index < this.numElements && !this.isEmpty()){ 
-			Object returnObject = this.list[index];
-			/*If there is only one element in this ArrayList, simply remove it*/
-			if(this.numElements == 1){this.list[index] = null;} 
-			else{ 	
-				/*If there are multiple elements, replace each current element in this ArrayList with
-				 * the element one space ahead of it, starting at the argument index - effectively removing
-				 * the Object at the specified index and filling back in the space where it was removed.*/
-				this.shiftLeft(index);
-			}this.numElements--; return returnObject;
-		}else{System.out.println("Invalid index or ArrayList is Empty");return -1;}
+		if(index >= 0 && index < this.numElements){
+			if(!this.isEmpty()){
+				Object returnObject = this.list[index];
+				/*If there is only one element in this ArrayList, simply remove it*/
+				if(this.numElements == 1){this.list[index] = null;} 
+				else{ 	
+					/*If there are multiple elements, replace each current element in this ArrayList with
+					 * the element one space ahead of it, starting at the argument index - effectively removing
+					 * the Object at the specified index and filling back in the space where it was removed.*/
+					this.shiftLeft(index);
+				}this.numElements--; return (T) returnObject;
+			}else{
+				System.out.println("ArrayList is Empty");return null;
+			}
+		}else{System.out.println("Invalid index");return null;}
 	}
 	
 	/**
@@ -151,10 +155,10 @@ public class ArrayList<T> {
 	 * @param index: The index of this ArrayList at which its object is returned.
 	 * @return The reference to the Object at the specified index.
 	 */
-	public Object get(int index){
+	public T get(int index){
 		if((index >= 0 && index < this.numElements) && !this.isEmpty()){
-			return this.list[index];
-		}else{return -1;}
+			return (T) this.list[index];
+		}else{return null;}
 	}
 	
 	/**

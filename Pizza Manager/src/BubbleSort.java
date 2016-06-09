@@ -11,13 +11,13 @@ public class BubbleSort extends Sort{
 	 * algorithm.
 	 */
 	@Override
-	public void sort(int[] data, int first, int last){
+	public void sort(ArrayList<Pizza> data, int first, int last){
 		while (first <= last){//While there are still unsorted elements to look at
 			incrementComparisons();
 			int counter = 0;//starting at index 0...
 			while(counter < last){//while the list runner is in bounds,
 				incrementComparisons();
-				if (data[counter] <= data[counter+1]){//if the current element is less than or equal to the next element
+				if (data.get(counter).compareTo(counter + 1) <= 0){//if the current element is less than or equal to the next element
 					incrementComparisons();
 					counter++;//Increment the counter, do not swap anything
 				}else{//If the current element is greater than the next,
@@ -33,9 +33,11 @@ public class BubbleSort extends Sort{
 	 * swap(): Swaps the positions of two elements in input array data.
 	 */
 	@Override
-	public void swap(int[] data, int idx1, int idx2){
-		int tempIdx1Data = data[idx1];
-		data[idx1] = data[idx2];
-		data[idx2] = tempIdx1Data;
+	public void swap(ArrayList<Pizza> data, int idx1, int idx2){
+		Pizza tempIdx1Data = (Pizza) data.remove(idx1);
+		//data.insert((Pizza) data.remove(idx2), idx1);
+		Pizza tempIdx2Data = (Pizza) data.remove(idx2);
+		data.insert(tempIdx2Data, idx1);
+		data.insert(tempIdx1Data, idx2);
 	}
 }

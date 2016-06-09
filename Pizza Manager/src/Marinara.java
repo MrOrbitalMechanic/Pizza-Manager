@@ -1,14 +1,18 @@
 /**
+ * Class Marinara: Sub-Class of Base; Preset Instance variables.
  * 
- * @author Roman
+ * @author Roman Zhang
  *
  */
 public class Marinara extends Base{
 
 	final static int CALORIES = 45;
 	final static Money COST = new Money(0,80);
-	final static String DESCRIPTION = " An Italian sauce that originated in Naples, made with tomatoes, garlic, herbs, and onions.";
+	final static String DESCRIPTION = "Marinara: An Italian sauce that originated in Naples, made with tomatoes, garlic, herbs, and onions.";
 	
+	/**
+	 * Marinara Constructor: Initializes calories, cost, and description.
+	 */
 	public Marinara() {
 		super(CALORIES, COST, DESCRIPTION);
 	}

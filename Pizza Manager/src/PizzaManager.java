@@ -13,17 +13,15 @@ import java.util.Scanner;
  */
 
 public class PizzaManager {
-	/*
-	 *  TODO: Data definitions here.  
-	 */
-	private ArrayList<Pizza> pizzaList = new ArrayList<Pizza>();
+	
+	private ArrayList<Pizza> pizzaList;
 	/* 
 	 * The console interface is defined in the start method 
 	 * You can exit or extend the code below to accomplish all of 
 	 * the outcomes defined in the homework document
 	 */
 	public void start() {
-		//this.pizzaList = new ArrayList<Pizza>();
+		this.pizzaList = new ArrayList<Pizza>();
 		char selection='q';
 		
 		Scanner foo = new Scanner(System.in);
@@ -53,15 +51,15 @@ public class PizzaManager {
 								break;			
 				case	'P':    
 				case	'p': 	System.out.println("QuickSorting pizzas by (P)rice");
-								//todo:
+								this.quickSortByPrice();
 							  	break;	
 				case	'S':    
 				case	's': 	System.out.println("QuickSorting pizzas by (S)ize");
-							 	//todo:
+							 	this.quickSortBySize();
 							 	break;		  
 				case	'C':    
 				case	'c':  	System.out.println("QuickSorting pizzas by (C)alories");
-							  	//todo
+							  	this.quickSortByCalories();
 							  	break;
 				case	'B':
 				case	'b':	System.out.println("(B)inary search over pizzas by calories(int).  QuickSorting first. What calorie count are you looking for?");
@@ -91,10 +89,11 @@ public class PizzaManager {
 					((Pizza) pizzaList.get(indexOfPizza)).eatSomePizza(fractionToEat);
 				}
 				catch (NegativePizzaException e){
-					System.out.print("Enter a valid fraction");
+					System.out.println("Enter a valid fraction");
 				}
 				catch(PizzaException i){
 					pizzaList.remove(indexOfPizza);
+					System.out.println("This pizza has now been completely eaten.");
 				}
 			}else{throw new PizzaException("Invalid index of Pizza");}
 		}else{System.out.println("There are currently no pizzas stored");}
@@ -111,15 +110,18 @@ public class PizzaManager {
 	}
 
 	private void quickSortByPrice() {  
-		//todo:
+		QuickSort priceSort = new QuickSort();
+		priceSort.sort(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
 	private void quickSortBySize() {
-		//todo:
+		QuickSort priceSort = new QuickSort();
+		priceSort.sortBySize(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
 	private void quickSortByCalories() {
-		//todo:
+		QuickSort priceSort = new QuickSort();
+		priceSort.sortByCalories(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
 	private int binarySearchByCalories(int cals) {

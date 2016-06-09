@@ -14,10 +14,10 @@ import java.util.Arrays;
 public abstract class Sort {
 	
 	//TODO: you override this method with a concrete (ie, not abstract) sort mechanism
-	public abstract void sort(int[] data, int first, int last);  //[first,...,last]
+	public abstract void sort(ArrayList<Pizza> data, int first, int last);  //[first,...,last]
 	
 	//TODO: override this method with a concrete (ie, not abstract) swap mechanism
-	public abstract void swap(int[] data, int idx1, int idx2);
+	public abstract void swap(ArrayList<Pizza> data, int idx1, int idx2);
 	
 	public static void main(String[] args) {
 		/* Choose your data set below */
@@ -31,12 +31,13 @@ public abstract class Sort {
 		int[] input6 = {9,8,7,6,5,4,3,2,1};
 		
 		/* add or comment/uncomment your sort below */
-		displaySortResults(new QuickSort(), input5);
-		displaySortResults(new BubbleSort(), input6);
+		//displaySortResults(new QuickSort(), input5);
+		//displaySortResults(new BubbleSort(), input6);
 		//displaySortResults(new SelectionSort(), input3);
 		
 	}
 	
+	/*
 	public static void displaySortResults(Sort sorter, int[] data) {
 		sorter.resetComparisons();
 
@@ -48,7 +49,7 @@ public abstract class Sort {
 		System.out.print(sorter.getClass().toString());
 		System.out.println(",Comparisons: " + sorter.getComparisons()+"\n\n");
 	}
-
+	*/
 	//Don't make changes to the code below.  What does the final modifier do?
 	private int comparisons=0;
 	

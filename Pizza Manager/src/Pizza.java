@@ -1,6 +1,6 @@
 /**
- * 
- * @author Roman
+ * Class Pizza:
+ * @author Roman Zhang
  *
  */
 public class Pizza implements PizzaComparable{
@@ -54,12 +54,13 @@ public class Pizza implements PizzaComparable{
 	}
 	
 	public void eatSomePizza(Fraction amount){
-		int numeratorDifference = this.pizzaFraction.getNumerator() - 
+		int sharedDenominator = this.pizzaFraction.getDenominator() * amount.getDenominator();
+		int numeratorDifference = (this.pizzaFraction.getNumerator() * amount.getDenominator()) - 
 				(this.pizzaFraction.getDenominator() * amount.getNumerator());
 		if(numeratorDifference == 0){throw new PizzaException("This pizza has now been completely eaten");}
 		else if(numeratorDifference < 0){throw new NegativePizzaException("Error: Negative pizza remaining after eaten");}
 		else{
-			this.pizzaFraction = new Fraction(numeratorDifference, this.pizzaFraction.getDenominator());
+			this.pizzaFraction = new Fraction(numeratorDifference, sharedDenominator);
 		}
 	}
 	
