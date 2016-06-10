@@ -34,9 +34,8 @@ public class BubbleSort extends Sort{
 	 */
 	@Override
 	public void swap(ArrayList<Pizza> data, int idx1, int idx2){
-		Pizza tempIdx1Data = (Pizza) data.remove(idx1);
-		//data.insert((Pizza) data.remove(idx2), idx1);
-		Pizza tempIdx2Data = (Pizza) data.remove(idx2);
+		Pizza tempIdx1Data = data.remove(idx1);
+		Pizza tempIdx2Data = data.remove(idx2-1);
 		data.insert(tempIdx2Data, idx1);
 		data.insert(tempIdx1Data, idx2);
 	}

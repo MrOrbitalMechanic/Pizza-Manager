@@ -1,15 +1,19 @@
 /**
- * Class Pizza:
+ * Class Pizza: A Comparable Pizza in a PizzaManager. Pizzas have a list (ArrayList) of ingredients, 
+ * a shape (circle or square), a Fraction representing the remaining Pizza, A Money total price of
+ * the Pizza in Dollars, and an integer calorie count. Pizzas can be compared by cost, remaining area, 
+ * and calories.
+ * 
  * @author Roman Zhang
  *
  */
 public class Pizza implements PizzaComparable{
 
-	private ArrayList<Ingredient> ingredientList;
-	private Shape pizzaShape;
-	private Fraction pizzaFraction;
-	private Money pizzaCost;
-	private int pizzaCalories;
+	private ArrayList<Ingredient> ingredientList; //The list of Ingredients on this Pizza
+	private Shape pizzaShape; //Shape of this Pizza (Circle or Square)
+	private Fraction pizzaFraction; //Fraction representing remaining Pizza
+	private Money pizzaCost; //Cost of this Pizza
+	private int pizzaCalories; //Number of calories in this Pizza
 	
 	
 	public Pizza(){
@@ -23,47 +27,108 @@ public class Pizza implements PizzaComparable{
 		this.setShape(new Circle(12));
 	}
 	
+	/*
+	public Pizza(Pizza other){
+		if(other != null){
+			this.ingredientList = other.getIngredients();
+			this.setRemaining(new Fraction(other.getRemaining()));
+			this.setShape(other.getShape());
+			this.pizzaCalories = other.getCalories();
+		}else{throw new PizzaException("Null object in pizza copy constructor");}
+	}
+	*/
+	
+	/**
+	 * getRemaining(): Accessor method for this Pizza's remaining Fraction
+	 * @return this Pizza's current Fraction
+	 */
 	public Fraction getRemaining(){
 		return new Fraction(this.pizzaFraction);
 	}
 	
+	/**
+	 * setRemaining(): Mutator method for setting this Pizza's Fraction.
+	 * @param remaining
+	 */
 	public void setRemaining(Fraction remaining){
 		this.pizzaFraction = new Fraction(remaining);
 	}
 	
+	/**
+	 * getCalories(): Accessor method for this Pizza's calories
+	 * @return this Pizza's current calorie amount.
+	 */
 	public int getCalories(){
 		return this.pizzaCalories;
 	}
 	
+	/**
+	 * getCost(): Accessor method for this Pizza's current cost.
+	 * @return this Pizza's current Money cost.
+	 */
 	public Money getCost(){
 		return new Money(this.pizzaCost);
 	}
 	
+	/**
+	 * getRemainingArea(): calculates this Pizza's remaining area based on it's Shape's whole area 
+	 * and its current Fraction remaining.
+	 * @return The area of this Pizza's Shape multiplied by the Fraction remaining.
+	 */
 	public double getRemainingArea(){
 		return (this.pizzaShape.getArea() * (this.pizzaFraction.getNumerator()/this.pizzaFraction.getDenominator()));
 	}
 	
+	/*
+	public ArrayList<Ingredient> getIngredients(){
+		ArrayList<Ingredient> retList = new ArrayList<Ingredient>();
+		for(int i = 0; i < this.ingredientList.size(); i++){
+			retList.add(this.ingredientList.get(i));
+		}return retList;
+	}
+	*/
+	
+	/**
+	 * setShape(): Mutator method for setting this Pizza's shape.
+	 * @param s
+	 */
 	public void setShape(Shape s) { pizzaShape = (Shape)s.clone();}
 	
+	/**
+	 * getShape(): Accessor method for this Pizza's Shape.
+	 * @return this Pizza's current Shape (Either a Circle or a Square).
+	 */
 	public Shape getShape() { return (Shape) pizzaShape.clone();}
 	
+	/**
+	 * addIngredient(): Adds Ingredient toAdd to this Pizza's list of Ingredients.
+	 * Adds the Ingredient's cost to this Pizza's whole cost.
+	 * Adds the Ingredient's calories to this Pizza's whole calorie amount.
+	 * @param toAdd: The Ingredient to be topped onto this Pizza
+	 */
 	public void addIngredient(Ingredient toAdd){
 		this.ingredientList.add(toAdd);
 		this.pizzaCost.add(new Money(toAdd.getCost()));
 		this.pizzaCalories += toAdd.getCalories();
 	}
 	
+	/**
+	 * eatSomePizza(): Subtracts this Pizza's fraction amount by input Fraction amount.
+	 * @param amount: Fraction to be subtracted to this Pizza
+	 */
 	public void eatSomePizza(Fraction amount){
-		int sharedDenominator = this.pizzaFraction.getDenominator() * amount.getDenominator();
-		int numeratorDifference = (this.pizzaFraction.getNumerator() * amount.getDenominator()) - 
+		int sharedDenominator = this.pizzaFraction.getDenominator() * amount.getDenominator(); //Finds the common denominator between this Pizza's Fraction and the input Fraction amount.
+		int numeratorDifference = (this.pizzaFraction.getNumerator() * amount.getDenominator()) - //Finds the difference between this Pizza's fraction ration and the input Fraction's ratio.
 				(this.pizzaFraction.getDenominator() * amount.getNumerator());
-		if(numeratorDifference == 0){throw new PizzaException("This pizza has now been completely eaten");}
-		else if(numeratorDifference < 0){throw new NegativePizzaException("Error: Negative pizza remaining after eaten");}
+		if(numeratorDifference == 0){throw new PizzaException("This pizza has now been completely eaten");} //If this Pizza's remaining fraction is zero after the subtraction, throw an exception to be handled
+																											//to remove this Pizza from the PizzaManager.
+		else if(numeratorDifference < 0){throw new NegativePizzaException("Error: Negative pizza remaining after eaten");} //If the difference results in a negative number, throw an error to be handled by PizzaManager
 		else{
 			this.pizzaFraction = new Fraction(numeratorDifference, sharedDenominator);
 		}
 	}
 	
+	@Override
 	public String toString(){
 		String retStr = "";
 		retStr += "A " + this.pizzaShape.toString() + " pizza with " + this.pizzaFraction.toString() +

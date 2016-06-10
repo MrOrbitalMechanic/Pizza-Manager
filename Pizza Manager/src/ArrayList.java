@@ -14,7 +14,7 @@
  */
 public class ArrayList<T> {
 
-	private Object[] list;
+	private T[] list;
 	private int numElements;
 	private static final int DEFAULTSIZE = 4; //The size this ArrayList will be initialized to by default.
 	
@@ -22,7 +22,7 @@ public class ArrayList<T> {
 	 * Default Constructor ArrayList(): Initializes this ArrayList to the given default size.
 	 */
 	public ArrayList(){
-		this.list = new Object[DEFAULTSIZE];
+		this.list = (T[]) new Object[DEFAULTSIZE];
 		this.numElements = 0;
 	}
 	
@@ -34,9 +34,9 @@ public class ArrayList<T> {
 	public ArrayList(int size){
 		if(size < 1){
 			System.out.println("Cannot set size to zero. Setting to default size: " + DEFAULTSIZE);
-			this.list = new Object[DEFAULTSIZE];
+			this.list = (T[]) new Object[DEFAULTSIZE];
 		}else{
-			this.list = new Object[size];
+			this.list = (T[]) new Object[size];
 			this.numElements = 0;
 		}
 	}
@@ -47,7 +47,7 @@ public class ArrayList<T> {
 	 */
 	public void add(T toAdd){
 		if(toAdd == null){
-			System.out.println("Error: null Object passed - ArrayList method add()");
+			throw new RuntimeException("Error: null Object passed - ArrayList method add()");
 		}else{
 			if(this.numElements >= this.list.length - 1){ //If capacity has been reached, resize the ArrayList
 				this.resize();						  
@@ -67,7 +67,7 @@ public class ArrayList<T> {
 	 */
 	public void insert(T toAdd, int index){
 		if(toAdd == null){
-			System.out.println("Error: null Object passed - ArrayList method insert()");
+			throw new RuntimeException("Error: null Object passed - ArrayList method insert()");
 		}else{
 			if(index >= 0){ //Input index cannot be less than 0 (Out of bounds)
 				if(this.numElements >= this.list.length - 1){
@@ -86,7 +86,7 @@ public class ArrayList<T> {
 						this.numElements++;
 					}	
 				}
-			}else{System.out.println("Error: Invalid index (ArrayList method insert()");}
+			}else{throw new RuntimeException("Error: Invalid index (ArrayList method insert()");}
 		}
 	}
 	
@@ -124,9 +124,9 @@ public class ArrayList<T> {
 					this.shiftLeft(index);
 				}this.numElements--; return (T) returnObject;
 			}else{
-				System.out.println("ArrayList is Empty");return null;
+				throw new RuntimeException("ArrayList is empty");
 			}
-		}else{System.out.println("Invalid index");return null;}
+		}else{throw new RuntimeException("Invalid Index");}
 	}
 	
 	/**
@@ -229,10 +229,10 @@ public class ArrayList<T> {
 	 * to a new array that is double the size of the old array.
 	 */
 	private void resize(){
-		Object[] copyArray = this.copyList();
-		this.list = new Object[copyArray.length * 2];
+		T[] copyArray = (T[]) this.copyList();
+		this.list = (T[]) new Object[copyArray.length * 2];
 		for(int i = 0; i < copyArray.length; i++){
-			this.list[i] = copyArray[i];
+			this.list[i] = (T) copyArray[i];
 		}
 	}
 	
@@ -247,4 +247,16 @@ public class ArrayList<T> {
 			returnList[i] = this.list[i];
 		}return returnList;
 	}
+	
+	/*
+	private void swap(int idx1, int idx2){
+		Pizza tempIdx1Data = new Pizza((Pizza) this.remove(idx1));
+		//data.insert(new Pizza((Pizza) data.remove(idx2)), idx1);
+		//data.insert(tempIdx1Data, idx2);
+		//data.insert(new Pizza((Pizza) data.remove(idx1+1)), idx2);
+		Pizza tempIdx2Data = new Pizza((Pizza) this.remove(idx2-1));
+		this.insert((T) tempIdx2Data, idx1);
+		this.insert((T) tempIdx1Data, idx2);
+	}
+	*/
 }

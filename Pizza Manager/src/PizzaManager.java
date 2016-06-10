@@ -63,10 +63,16 @@ public class PizzaManager {
 							  	break;
 				case	'B':
 				case	'b':	System.out.println("(B)inary search over pizzas by calories(int).  QuickSorting first. What calorie count are you looking for?");
-								//todo:
+								this.quickSortByCalories();
+								int calsToFind = foo.nextInt();
+								if (calsToFind >= 0){
+									System.out.println(this.binarySearchByCalories(calsToFind));
+								}else{System.out.println("Invalid calories to find. Try again.");}
+								break;
 				case    'R':
 				case 	'r':	System.out.println("(R)everse order of Pizzas with a Stack" );
-								//todo:				
+								this.reverseOrder();
+								break;
 				case    'Q':
 				case 	'q':	System.out.println("(Q)uitting!" );
 
@@ -115,20 +121,42 @@ public class PizzaManager {
 	}
 	
 	private void quickSortBySize() {
-		QuickSort priceSort = new QuickSort();
-		priceSort.sortBySize(this.pizzaList, 0, pizzaList.size()-1);
+		QuickSort sizeSort = new QuickSort();
+		sizeSort.sortBySize(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
 	private void quickSortByCalories() {
-		QuickSort priceSort = new QuickSort();
-		priceSort.sortByCalories(this.pizzaList, 0, pizzaList.size()-1);
+		QuickSort calorieSort = new QuickSort();
+		calorieSort.sortByCalories(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
 	private int binarySearchByCalories(int cals) {
-		//todo:
-		return -1;
+		return recursiveBinarySearch(cals,0,this.pizzaList.size()-1);
 	}
 	
+	private int recursiveBinarySearch(int toFind,int first,int last){
+		if(first < last){
+			int mid = (first+last)/2;
+			if(toFind < this.pizzaList.get(mid).getCalories()){
+				return recursiveBinarySearch(toFind,first, mid - 1);
+			}else if (toFind > this.pizzaList.get(mid).getCalories()){
+				return recursiveBinarySearch(toFind,mid + 1, last);
+			}else{
+				return mid;
+			}
+		}else{return -1;}
+	}
+	
+	private void reverseOrder(){
+		Stack reverserStack = new Stack();
+		while(!this.pizzaList.isEmpty()){
+			reverserStack.push(this.pizzaList.remove(0));
+		}
+		
+		while(!reverserStack.isEmpty()){
+			this.pizzaList.add((Pizza) reverserStack.pop());
+		}
+	}
 	/*
 	 * No need to edit functions below this line, unless extending the menu or
 	 * changing the instructions
