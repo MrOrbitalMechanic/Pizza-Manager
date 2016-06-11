@@ -15,28 +15,44 @@ public class Pizza implements PizzaComparable{
 	private Money pizzaCost; //Cost of this Pizza
 	private int pizzaCalories; //Number of calories in this Pizza
 	
-	
+	/**
+	 * Default Constructor Pizza(): Creates an instance of a Pizza with random shape, one random Vegetable
+	 * subclass, one random Meat subclass, one random Base subclass, and one random Cheese subclass.
+	 */
 	public Pizza(){
 		this.ingredientList = new ArrayList<Ingredient>();
 		this.setRemaining(new Fraction(1,1));
 		this.pizzaCost = new Money();
+		
+		int randomShape = (int)(Math.round(Math.random()));
+		if (randomShape == 0) this.pizzaShape = new Circle(12);
+		else this.pizzaShape = new Square(12);
+		
+		int randomBase = (int)(Math.round(Math.random()));
+		if (randomBase == 0) addIngredient(new Marinara());
+		else addIngredient(new Alfredo());
+		
+		int randomCheese = (int)(Math.round(Math.random()));
+		if (randomCheese == 0) addIngredient(new Goat());
+		else addIngredient(new Mozzarella());
+		
+		int randomMeat = (int)(Math.round(Math.random()));
+		if (randomMeat == 0) addIngredient(new Pepperoni());
+		else addIngredient(new Sausage());
+		
+		int randomVeg = (int)(Math.round(Math.random()));
+		if (randomVeg == 0) addIngredient(new Pepper());
+		else addIngredient(new Olive());
+		
+		
+		/*
 		addIngredient(new Marinara());
 		addIngredient(new Mozzarella());
 		addIngredient(new Pepperoni());
 		addIngredient(new Pepper());
 		this.setShape(new Circle(12));
+		*/
 	}
-	
-	/*
-	public Pizza(Pizza other){
-		if(other != null){
-			this.ingredientList = other.getIngredients();
-			this.setRemaining(new Fraction(other.getRemaining()));
-			this.setShape(other.getShape());
-			this.pizzaCalories = other.getCalories();
-		}else{throw new PizzaException("Null object in pizza copy constructor");}
-	}
-	*/
 	
 	/**
 	 * getRemaining(): Accessor method for this Pizza's remaining Fraction
@@ -78,15 +94,6 @@ public class Pizza implements PizzaComparable{
 	public double getRemainingArea(){
 		return (this.pizzaShape.getArea() * (this.pizzaFraction.getNumerator()/this.pizzaFraction.getDenominator()));
 	}
-	
-	/*
-	public ArrayList<Ingredient> getIngredients(){
-		ArrayList<Ingredient> retList = new ArrayList<Ingredient>();
-		for(int i = 0; i < this.ingredientList.size(); i++){
-			retList.add(this.ingredientList.get(i));
-		}return retList;
-	}
-	*/
 	
 	/**
 	 * setShape(): Mutator method for setting this Pizza's shape.

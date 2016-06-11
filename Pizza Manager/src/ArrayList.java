@@ -248,15 +248,15 @@ public class ArrayList<T> {
 		}return returnList;
 	}
 	
-	/*
-	private void swap(int idx1, int idx2){
-		Pizza tempIdx1Data = new Pizza((Pizza) this.remove(idx1));
-		//data.insert(new Pizza((Pizza) data.remove(idx2)), idx1);
-		//data.insert(tempIdx1Data, idx2);
-		//data.insert(new Pizza((Pizza) data.remove(idx1+1)), idx2);
-		Pizza tempIdx2Data = new Pizza((Pizza) this.remove(idx2-1));
-		this.insert((T) tempIdx2Data, idx1);
-		this.insert((T) tempIdx1Data, idx2);
+	/**
+	 * 
+	 * @param idx1
+	 * @param idx2
+	 */
+	public void swap(int idx1, int idx2){
+		T tempIdx1Data = this.list[idx1];
+		this.list[idx1] = this.list[idx2];
+		this.list[idx2] = tempIdx1Data;
 	}
-	*/
+	
 }

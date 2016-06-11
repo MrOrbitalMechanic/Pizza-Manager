@@ -75,7 +75,6 @@ public class PizzaManager {
 								break;
 				case    'Q':
 				case 	'q':	System.out.println("(Q)uitting!" );
-
 								runCondition = false;
 								break;
 				default:	System.out.println("Unrecognized input - try again");
@@ -84,56 +83,98 @@ public class PizzaManager {
 
 	}
 
+	/**
+	 * eatSomePizza(): Takes input from the key Scanner for the Fraction of Pizza to be eaten, and which Pizza in the 
+	 * List is to be eaten. If the subtraction of the Pizza results to 0, remove that Pizza from the List.
+	 * If the difference is negative, prompt the user to enter a valid Fraction.
+	 * @param keys
+	 */
 	private void eatSomePizza(Scanner keys) {
-		String inFraction = keys.next();
+		String inFraction = keys.next(); //The String input read from the Scanner
 		Fraction fractionToEat = new Fraction(inFraction);
 		System.out.println("Index of pizza you would like to eat?");
 		int indexOfPizza = keys.nextInt();
-		if (pizzaList.size() > 0){
-			if (indexOfPizza >= 0 && indexOfPizza < pizzaList.size()){
-				try{
-					((Pizza) pizzaList.get(indexOfPizza)).eatSomePizza(fractionToEat);
-				}
-				catch (NegativePizzaException e){
-					System.out.println("Enter a valid fraction");
-				}
-				catch(PizzaException i){
-					pizzaList.remove(indexOfPizza);
-					System.out.println("This pizza has now been completely eaten.");
-				}
-			}else{throw new PizzaException("Invalid index of Pizza");}
-		}else{System.out.println("There are currently no pizzas stored");}
+	
+		if (indexOfPizza >= 0 && indexOfPizza < pizzaList.size()){
+			try{
+				(pizzaList.get(indexOfPizza)).eatSomePizza(fractionToEat);
+			}
+			catch (NegativePizzaException e){
+				System.out.println("Resulting Pizza difference is negative: Enter a valid fraction");
+				eatSomePizza(keys);
+			}
+			catch(PizzaException i){
+				pizzaList.remove(indexOfPizza);
+				System.out.println("This pizza has now been completely eaten.");
+			}
+		}else{
+			System.out.println("Invalid index; Please enter a valid index");
+			//eatSomePizza(keys);
+		}
+	
 	}
 	
+	/**
+	 * addRandomPizza(): adds a Pizza with Random specifications to this PizzaManager's list
+	 */
 	private void addRandomPizza() {
 		this.pizzaList.add(new Pizza());
 	}
 
+	/**
+	 * displayAllPizzas(): Prints to console all Pizzas currently stored in this PizzaManager's list
+	 */
 	private void displayAllPizzas() {
 		for (int i = 0; i < pizzaList.size(); i++){
 			System.out.println(pizzaList.get(i).toString() + "\n");
 		}
 	}
 
+	/**
+	 * quickSortByPrice(): Uses the quicksort algorithm to recursively rearrange the Pizza's in this
+	 * PizzaManager in ascending order by their price.
+	 */
 	private void quickSortByPrice() {  
 		QuickSort priceSort = new QuickSort();
 		priceSort.sort(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
+	/**
+	 * quickSortBySize(): Uses the quicksort algorithm to recursively rearrange the Pizza's in this
+	 * PizzaManager in ascending order by their remaining area.
+	 */
 	private void quickSortBySize() {
 		QuickSort sizeSort = new QuickSort();
 		sizeSort.sortBySize(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
+	/**
+	 * quickSortByCalories(): Uses the quicksort algorithm to recursively rearrange the Pizza's in this
+	 * PizzaManager in ascending order by their calories.
+	 */
 	private void quickSortByCalories() {
 		QuickSort calorieSort = new QuickSort();
 		calorieSort.sortByCalories(this.pizzaList, 0, pizzaList.size()-1);
 	}
 	
+	/**
+	 * binarySearchByCalories(): Uses the recursive binary search algorithm to locate the index of a Pizza with a specified 
+	 * number of calories in this PizzaManager.
+	 * @param cals: The specified number of calories to be found 
+	 * @return The index of the Pizza with the exact number of specified calories "cals"
+	 */
 	private int binarySearchByCalories(int cals) {
 		return recursiveBinarySearch(cals,0,this.pizzaList.size()-1);
 	}
 	
+	/**
+	 * recursiveBinarySearch(): Standalone recursive binary search algorithm for use in this PizzaManager's 
+	 * binarySearchByCalories.
+	 * @param toFind
+	 * @param first
+	 * @param last
+	 * @return The index of the specified value in this PizzaList.
+	 */
 	private int recursiveBinarySearch(int toFind,int first,int last){
 		if(first < last){
 			int mid = (first+last)/2;
@@ -147,6 +188,9 @@ public class PizzaManager {
 		}else{return -1;}
 	}
 	
+	/**
+	 * reverseOrder(): Uses a Stack to reverse the order of Pizza's in this PizzaManager's List.
+	 */
 	private void reverseOrder(){
 		Stack reverserStack = new Stack();
 		while(!this.pizzaList.isEmpty()){

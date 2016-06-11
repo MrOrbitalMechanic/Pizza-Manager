@@ -25,12 +25,12 @@ public class QuickSort extends BubbleSort{
 					primaryPointer--;// increment the second pointer
 				}else{
 					incrementComparisons();
-					swap(data,primaryPointer,secondaryPointer);
+					data.swap(primaryPointer,secondaryPointer);
 					secondaryPointer--;
 					primaryPointer--;
 				}
 			}
-			swap(data, secondaryPointer + 1, last);
+			data.swap(secondaryPointer + 1, last);
 			sort(data, first, secondaryPointer);//sort the left partition
 			sort(data, secondaryPointer + 2, last);//sort the right partition
 		}else{
@@ -53,12 +53,12 @@ public class QuickSort extends BubbleSort{
 					primaryPointer--;// increment the second pointer
 				}else{
 					incrementComparisons();
-					swap(data,primaryPointer,secondaryPointer);
+					data.swap(primaryPointer,secondaryPointer);
 					secondaryPointer--;
 					primaryPointer--;
 				}
 			}
-			swap(data, secondaryPointer + 1, last);
+			data.swap(secondaryPointer + 1, last);
 			sort(data, first, secondaryPointer);//sort the left partition
 			sort(data, secondaryPointer + 2, last);//sort the right partition
 		}else{
@@ -81,12 +81,12 @@ public class QuickSort extends BubbleSort{
 					primaryPointer--;// increment the second pointer
 				}else{
 					incrementComparisons();
-					swap(data,primaryPointer,secondaryPointer);
+					data.swap(primaryPointer,secondaryPointer);
 					secondaryPointer--;
 					primaryPointer--;
 				}
 			}
-			swap(data, secondaryPointer + 1, last);
+			data.swap(secondaryPointer + 1, last);
 			sort(data, first, secondaryPointer);//sort the left partition
 			sort(data, secondaryPointer + 2, last);//sort the right partition
 		}else{

@@ -7,7 +7,7 @@
 public class Alfredo extends Base{
 
 	final static int CALORIES = 50;
-	final static Money COST = new Money(0,80);
+	final static Money COST = new Money(1,20);
 	final static String DESCRIPTION = "Alfredo: Parmesan cheese melted in butter";
 	
 	/**

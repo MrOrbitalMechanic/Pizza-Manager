@@ -12,10 +12,10 @@ public class Rectangle extends Shape{
 	private int width;
 	private int height;
 	
-	private Rectangle(int inX, int inY){super(inX,inY);}
+	//private Rectangle(int inX, int inY){super(inX,inY);}
 	
-	public Rectangle(int inX, int inY, int inWidth, int inHeight) {
-		super(inX, inY);
+	public Rectangle(int inWidth, int inHeight) {
+		super(0, 0);
 		if(inWidth > 0 && inHeight > 0){
 			this.width = inWidth;
 			this.height = inHeight;
